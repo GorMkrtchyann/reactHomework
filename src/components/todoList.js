@@ -1,10 +1,11 @@
 import {Button} from "./button";
 import {useState} from "react";
 
+let listTodo = [];
 
-export function TodoList(){
-    let todoList = ["Learn React 1", "Learn React 2", "Learn React 3 ", "Learn React 4"]
-    const [list, setList] = useState(todoList)
+export function TodoList({lists}){
+    console.log(lists)
+    const [list, setList] = useState([])
 
     const deleteAllTask = () => {
         setList([])
@@ -23,7 +24,7 @@ export function TodoList(){
                     list.map((el, i) => {
                         return(
                             <div key={i} className={"todoList__todos__item"}>
-                                <label htmlFor={i}>{el}</label>
+                                <label htmlFor={i}>{el.toDo}</label>
                                 <div className={"todoList__todos__item__buttons"}>
                                     <input type="checkbox" id={i} />
                                     <i className="fa-solid fa-pen" style={{color: "orange"}}></i>
