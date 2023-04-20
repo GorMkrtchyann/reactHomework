@@ -1,14 +1,9 @@
 import {Button} from "./button";
-import {useState} from "react";
 
-let listTodo = [];
-
-export function TodoList({lists}){
-    console.log(lists)
-    const [list, setList] = useState([])
+export function TodoList({lists, setToDo}){
 
     const deleteAllTask = () => {
-        setList([])
+        setToDo([])
     }
 
     return(
@@ -21,10 +16,10 @@ export function TodoList({lists}){
             </div>
             <div className="todoList__todos">
                 {
-                    list.map((el, i) => {
+                    lists.map((el, i) => {
                         return(
                             <div key={i} className={"todoList__todos__item"}>
-                                <label htmlFor={i}>{el.toDo}</label>
+                                <label htmlFor={i}>{el.taskName}</label>
                                 <div className={"todoList__todos__item__buttons"}>
                                     <input type="checkbox" id={i} />
                                     <i className="fa-solid fa-pen" style={{color: "orange"}}></i>

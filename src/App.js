@@ -1,18 +1,31 @@
 import './App.css';
 import {TodoInput} from "./components/todoInput";
 import {TodoList} from "./components/todoList";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-let taskList = []
 
 function App() {
+    const [toDo, setToDo] = useState([])
+    const [newToDo, setNewToDo] = useState('')
 
-    const [toDo, setToDo] = useState(taskList)
+    useEffect(() => {
+        addTasks()
+    }, [])
+
+    const addTasks = () => {
+        if (newToDo){
+            setToDo([...toDo, {
+                taskName: newToDo,
+                status: false
+            }])
+            localStorage.setItem("listJSON", JSON.stringify(toDo))
+        }
+    }
 
     return (
     <div className={"container"}>
-      <TodoInput lists={toDo} func={setToDo}/>
-      <TodoList lists={toDo}/>
+      <TodoInput addTasks={addTasks} newTodo={newToDo} setNewToDo={setNewToDo}/>
+      <TodoList lists={toDo} setToDo={setToDo}/>
     </div>
   );
 }

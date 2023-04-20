@@ -1,18 +1,7 @@
 import {Button} from "./button";
-import {useState} from "react";
 
+export function TodoInput({addTasks, setNewToDo}){
 
-export function TodoInput({lists, func}){
-    const [newToDo, setNewToDo] = useState()
-
-    const addTasks = () => {
-        lists.push({
-            toDo: newToDo,
-            status: false
-        })
-        func(lists)
-        localStorage.setItem('toDoJSON', JSON.stringify(lists))
-    }
     return(
         <div className={"todoInput"}>
             <h2>TodoList</h2>
