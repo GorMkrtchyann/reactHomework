@@ -1,6 +1,7 @@
 *, body{
   margin: 0;
   padding: 0;
+  font-family: Arial;
 }
 
 .container{
@@ -96,6 +97,12 @@ h2{
               border-radius: 2px;
             }
           }
+        }
+      }
+      &[data-status="done"]{
+        label{
+          text-decoration: line-through;
+          color: red;
         }
       }
     }

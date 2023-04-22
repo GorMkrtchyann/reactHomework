@@ -1,33 +1,12 @@
-import './App.css';
-import {TodoInput} from "./components/todoInput";
-import {TodoList} from "./components/todoList";
-import {useEffect, useState} from "react";
+import {Home} from "./pages/home";
 
 
 function App() {
-    const [toDo, setToDo] = useState([])
-    const [newToDo, setNewToDo] = useState('')
-
-    useEffect(() => {
-        addTasks()
-    }, [])
-
-    const addTasks = () => {
-        if (newToDo){
-            setToDo([...toDo, {
-                taskName: newToDo,
-                status: false
-            }])
-            localStorage.setItem("listJSON", JSON.stringify(toDo))
-        }
-    }
-
-    return (
-    <div className={"container"}>
-      <TodoInput addTasks={addTasks} newTodo={newToDo} setNewToDo={setNewToDo}/>
-      <TodoList lists={toDo} setToDo={setToDo}/>
-    </div>
-  );
+    return(
+        <div>
+            <Home/>
+        </div>
+    )
 }
 
 export default App;
