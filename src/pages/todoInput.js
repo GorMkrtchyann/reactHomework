@@ -13,7 +13,6 @@ export function TodoInput({lists, setToDo}){
             status: false
         }])
         setNewToDo('')
-        console.log(lists)
     }
 
     const addTaskName = (e) => {
