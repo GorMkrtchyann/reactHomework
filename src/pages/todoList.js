@@ -1,5 +1,6 @@
 import {Button} from "../components/button";
 import {useEffect, useState} from "react";
+import PropTypes from "prop-types";
 
 export function TodoList({lists, setToDo}){
     const [filter, setFilter] = useState()
@@ -39,6 +40,37 @@ export function TodoList({lists, setToDo}){
         })
     }
 
+    const deleteTask = id => {
+        setToDo(lists?.filter(el => {return el.id !== id}))
+    }
+
+    const editTask = id => {
+        lists.map(el => {
+            if (el.id === id){
+                el.edit = true
+            }
+            return setFilter([...lists])
+        })
+    }
+
+    const editName = (id, e) =>{
+        lists.map(el => {
+            if (el.id === id){
+                el.name = e.target.value
+            }
+            return setFilter([...lists])
+        })
+    }
+
+    const endEdit = (id) => {
+        lists.map(el => {
+            if (el.id === id){
+                el.edit = false
+            }
+            return setFilter([...lists])
+        })
+    }
+
     return(
         <div className={"todoList"}>
             <h2>TodoList</h2>
@@ -52,11 +84,19 @@ export function TodoList({lists, setToDo}){
                     filter?.map((el) => {
                         return(
                             <div key={el.id} data-status={el.status ? 'done' : 'todo'} className={"todoList__todos__item"}>
-                                <label htmlFor={el.id}>{el.name}</label>
+                                {
+                                    el.edit ?
+                                        <div>
+                                            <input type="text" onChange={(e) => editName(el.id, e)} value={el.name}/>
+                                            <button onClick={() => endEdit(el.id)}>OK</button>
+                                        </div>
+                                    :
+                                        <label htmlFor={el.id}>{el.name}</label>
+                                }
                                 <div className={"todoList__todos__item__buttons"}>
                                     <input type="checkbox" id={el.id} checked={el.status ? true : false} onChange={check} />
-                                    <i className="fa-solid fa-pen" style={{color: "orange"}}></i>
-                                    <i className="fa-solid fa-trash" style={{color: "red"}}></i>
+                                    <i className="fa-solid fa-pen" style={{color: "orange"}} onClick={() => editTask(el.id)}></i>
+                                    <i className="fa-solid fa-trash" style={{color: "red"}} onClick={() => deleteTask(el.id)}></i>
                                 </div>
                             </div>
                         )
@@ -69,4 +109,9 @@ export function TodoList({lists, setToDo}){
             </div>
         </div>
     )
+}
+
+TodoList.propTypes = {
+    lists: PropTypes.any,
+    setToDo: PropTypes.func
 }

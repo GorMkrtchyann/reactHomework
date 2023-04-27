@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {Button} from "../components/button";
 import {useState} from "react";
 
@@ -7,11 +8,11 @@ export function TodoInput({lists, setToDo}){
     const [newToDo, setNewToDo] = useState('')
 
     const addTasks = () => {
-        setToDo([...lists, {
+        newToDo ? setToDo([...lists, {
             id: "task_" + i++,
             name: newToDo,
             status: false
-        }])
+        }]) : alert("Write ToDo")
         setNewToDo('')
     }
 
@@ -32,3 +33,11 @@ export function TodoInput({lists, setToDo}){
         </div>
     )
 }
+
+TodoInput.propTypes = {
+    lists: PropTypes.any,
+    setToDo: PropTypes.func
+}
+
+
+

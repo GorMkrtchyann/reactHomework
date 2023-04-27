@@ -3,9 +3,9 @@ import {TodoList} from "./todoList";
 import {useEffect, useState} from "react";
 
 let taskList = [
-    {id: "task_1", name: "Learn React", status: false},
-    {id: "task_2", name: "Learn Redux", status: true},
-    {id: "task_3", name: "Learn React Native", status: false},
+    {id: "task_1", name: "Learn React", status: false, edit: false},
+    {id: "task_2", name: "Learn Redux", status: true, edit: true},
+    {id: "task_3", name: "Learn React Native", status: false, edit: false},
 ]
 
 export const Home = () => {
@@ -22,10 +22,10 @@ export const Home = () => {
         <div className={"container"}>
             {
                 toDo ?
-                    <div>
+                    <>
                         <TodoInput lists={toDo} setToDo={setToDo}/>
                         <TodoList lists={toDo} setToDo={setToDo}/>
-                    </div>
+                    </>
                     :
                     <h2>Loading...</h2>
             }
