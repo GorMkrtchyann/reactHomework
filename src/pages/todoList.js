@@ -1,20 +1,23 @@
 import {Button} from "../components/button";
 import {useEffect, useState} from "react";
-import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteList, updateList} from "../store/list/list.action";
 
-export function TodoList({lists, setToDo}){
+export function TodoList(){
     const [filter, setFilter] = useState()
+    const lists = useSelector((store) => store.listReducer.taskList)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setFilter(lists)
     }, [lists])
 
     const deleteAllTask = () => {
-        setToDo([])
+        dispatch(deleteList())
     }
 
     const deleteAllDoneTask = () => {
-        setToDo(lists?.filter(el => {return el.status === false}))
+        dispatch(updateList(lists?.filter(el => {return el.status === false})))
         setFilter([...lists])
     }
 
@@ -41,7 +44,7 @@ export function TodoList({lists, setToDo}){
     }
 
     const deleteTask = id => {
-        setToDo(lists?.filter(el => {return el.id !== id}))
+        dispatch(updateList(lists?.filter(el => {return el.id !== id})))
     }
 
     const editTask = id => {
@@ -109,9 +112,4 @@ export function TodoList({lists, setToDo}){
             </div>
         </div>
     )
-}
-
-TodoList.propTypes = {
-    lists: PropTypes.any,
-    setToDo: PropTypes.func
 }
